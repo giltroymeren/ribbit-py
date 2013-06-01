@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet/css" href="{{ STATIC_URL }}assets/style.less">
-    <script src="{{ STATIC_URL }}assets/less.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}assets/style.css">
 </head>
 <body>
     <header>
@@ -15,7 +14,7 @@
             <a href="/users/{{ username }}">My Profile</a>
             <a href="/ribbits">Public Ribbits</a>
             <form action="/logout">
-                <input type="submit" id="btnLogout" value="Log Out">
+                <input type="submit" id="btnLogOut" value="Log Out">
             </form>
             {% endblock %}
         </div>

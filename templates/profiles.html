@@ -7,7 +7,7 @@
 <body>
 	<header>
 		<div class="wrapper">
-			<img src="images/logo.png">
+			<img src="{{ STATIC_URL }}assets/images/logo.png">
 			<span>Twitter Clone</span>
 			<form>
 				<input type="submit" id="btnLogOut" value="Log Out">
@@ -28,21 +28,21 @@
 			<div id="ribbits" class="panel left">
 				<h1>Public Profiles</h1>
 				<div class="ribbitWrapper">
-					<img class="avatar" src="images/user2.png">
+					<img class="avatar" src="{{ STATIC_URL }}assets/images/user2.png">
 					<span class="name">Kermit</span> @username <span class="time">625 followers <a href="#">follow</a></span>
 					<p>
 						Cras justo odio, dapibus ac facilisis in, egestas Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. <a href="#">http://net.tutsplus.com/tutorials/php/ ...</a>
 					</p>
 				</div>
 				<div class="ribbitWrapper">
-					<img class="avatar" src="images/user1.png">
+					<img class="avatar" src="{{ STATIC_URL }}assets/images/user1.png">
 					<span class="name">Frogger</span> @username <span class="time">329 followers <a href="#">follow</a></span>
 					<p>
 						Cras justo odio, dapibus ac facilisis in, egestas Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. <a href="#">http://net.tutsplus.com/tutorials/php/ ...</a>
 					</p>
 				</div>
 				<div class="ribbitWrapper">
-					<img class="avatar" src="images/user3.png">
+					<img class="avatar" src="{{ STATIC_URL }}assets/images/user3.png">
 					<span class="name">Hypnotoad</span> @username <span class="time">129 followers <a href="#">follow</a></span>
 					<p>
 						Cras justo odio, dapibus ac facilisis in, egestas Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. <a href="#">http://net.tutsplus.com/tutorials/php/ ...</a>
@@ -53,7 +53,7 @@
 	</div>
 	<footer>
 		<div class="wrapper">
-			Ribbit - A Twitter Clone Tutorial<img src="images/logo-nettuts.png">
+			Ribbit - A Twitter Clone Tutorial<img src="{{ STATIC_URL }}assets/images/logo-nettuts.png">
 		</div>
 	</footer>
 </body>

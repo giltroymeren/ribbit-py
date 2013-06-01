@@ -10,4 +10,6 @@ urlpatterns = patterns('',
     url(r'^login$', 'ribbit_py_app.views.login_view'), # login
     url(r'^logout$', 'ribbit_py_app.views.logout_view'), # logout
     url(r'^signup$', 'ribbit_py_app.views.signup'), # signup
+    url(r'^ribbit$', 'ribbit_py_app.views.public'), # public ribbits
+    url(r'^submit$', 'ribbit_py_app.views.submit'), # create new ribbit
 )
