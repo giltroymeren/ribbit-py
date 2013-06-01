@@ -1,0 +1,1 @@
+web: gunicorn ribbit_py.wsgi

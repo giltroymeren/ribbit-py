@@ -16,3 +16,7 @@ urlpatterns = patterns('',
     url(r'^users/(?P<username>\w{0,30})/$', 'ribbit_py_app.views.users'),
     url(r'^follow$', 'ribbit_py_app.views.follow'),
 )
+
+urlpatterns += patterns('django.contrib.staticfiles.views',
+    url(r'^static/(?P<path>.*)$', 'serve'),
+)

@@ -1,4 +1,6 @@
 import os
+import dj_database_url
+
 PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
 # Django settings for ribbit_py project.
 
@@ -14,10 +16,10 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': os.path.join(PROJECT_PATH, 'database.db'),  # Or path to database file if using sqlite3.
+        'NAME': 'ribbit_py',  # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
-        'USER': '',
-        'PASSWORD': '',
+        'USER': 'username',
+        'PASSWORD': 'password',
         'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
         'PORT': '',                      # Set to empty string for default.
     }
@@ -159,3 +161,5 @@ LOGGING = {
         },
     }
 }
+
+DATABASES['default'] = dj_database_url.config()

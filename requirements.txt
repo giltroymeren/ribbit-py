@@ -1,0 +1,4 @@
+Django==1.5.1
+South==0.8.1
+distribute==0.6.43
+virtualenv==1.9.1
