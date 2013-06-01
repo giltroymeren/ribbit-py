@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.core.exceptions import ObjectDoesNotExist
+from django.db.models import Count
+from django.http import Http404
 from ribbit_py_app.forms import AuthenticateForm, UserCreateForm, RibbitForm
 from ribbit_py_app.models import Ribbit
 
@@ -15,7 +18,8 @@ def index(request, auth_form=None, user_form=None):
 		ribbits = ribbits_self | ribbits_buddies
 
 		return render(request, 'buddies.html', 
-			{'ribbit_form': ribbit_form, 'user': user, 'ribbits': ribbits, 'next_url': '/', })
+			{'ribbit_form': ribbit_form, 'user': user, 
+			'ribbits': ribbits, 'next_url': '/', })
 	#User is not logged in
 	else:
 		auth_form = auth_form or AuthenticateForm()
@@ -74,3 +78,45 @@ def public(request, ribbit_form=None):
                   'public.html',
                   {'ribbit_form': ribbit_form, 'next_url': '/ribbits',
                    'ribbits': ribbits, 'username': request.user.username})    
+
+def get_latest(user):
+    try:
+        return user.ribbit_set.order_by('-id')[0]
+    except IndexError:
+        return ""
+
+@login_required
+def users(request, username="", ribbit_form=None):
+    if username: # Show a profile
+        try:
+            user = User.objects.get(username=username)
+        except User.DoesNotExist:
+            raise Http404
+        ribbits = Ribbit.objects.filter(user=user.id)
+        if username == request.user.username or request.user.profile.follows.filter(user__username=username):
+            # Self Profile or buddies' profile
+            return render(request, 'user.html', {'user': user, 'ribbits': ribbits, })
+        return render(request, 'user.html', {'user': user, 
+        	'ribbits': ribbits, 'follow': True, })
+    users = User.objects.all().annotate(ribbit_count=Count('ribbit'))
+    ribbits = map(get_latest, users)
+    obj = zip(users, ribbits)
+    ribbit_form = ribbit_form or RibbitForm()
+    return render(request,
+                  'profiles.html',
+                  {'obj': obj, 'next_url': '/users/',
+                   'ribbit_form': ribbit_form,
+                   'username': request.user.username, })
+
+
+@login_required
+def follow(request):
+    if request.method == "POST":
+        follow_id = request.POST.get('follow', False)
+        if follow_id:
+            try:
+                user = User.objects.get(id=follow_id)
+                request.user.profile.follows.add(user.profile)
+            except ObjectDoesNotExist:
+                return redirect('/users/')
+    return redirect('/users/')
